@@ -13,7 +13,6 @@ class Track extends Component {
   }
 
   render() {
-    console.log(this.props.track)
     return (
       <div className="Track">
         <div className="Track-information">
