@@ -7,7 +7,7 @@ class Playlist extends Component {
     return (
       <div className="Playlist">
         <input defaultValue={'New Playlist'} />
-        <TrackList />
+
         <a className="Playlist-save">SAVE TO SPOTIFY</a>
       </div>
     )
@@ -15,3 +15,6 @@ class Playlist extends Component {
 }
 
 export default Playlist;
+
+
+  /*<TrackList /> need to go back to line 10 eventually*/
