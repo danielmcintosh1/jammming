@@ -43,6 +43,7 @@ class App extends Component {
       this.addTrack = this.addTrack.bind(this);
       this.removeTrack = this.removeTrack.bind(this);
       this.updatePlaylistName = this.updatePlaylistName.bind(this);
+      this.savePlaylist = this.savePlaylist.bind(this);
   }
 
   addTrack(track) {
@@ -63,6 +64,12 @@ class App extends Component {
 
   updatePlaylistName(newName) {
     this.setState({playlistName: newName});
+  }
+
+  savePlaylist() {
+    let trackURIs = [];
+    trackURIs = this.state.playlistTracks.map(track =>  track.id)
+
   }
 
   render() {
