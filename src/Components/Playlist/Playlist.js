@@ -3,10 +3,23 @@ import './Playlist.css';
 import TrackList from '../TrackList/TrackList';
 
 class Playlist extends Component {
+  constructor(props) {
+    super(props);
+    this.handleNameChange = this.handleNameChange.bind(this);
+  }
+
+  handleNameChange(onChangeEvent) {
+    const name = onChangeEvent.target.value;
+    this.props.onNameChange(name);
+  }
+
+
   render() {
     return (
       <div className="Playlist">
-        <input defaultValue={'New Playlist'} />
+        <input
+          defaultValue={'New Playlist'}
+          onChange = {this.handleNameChange} />
         <TrackList
           tracks = {this.props.playlistTracks }
           onRemove = {this.props.onRemove}
@@ -18,6 +31,3 @@ class Playlist extends Component {
 }
 
 export default Playlist;
-
-
-  /* need to go back to line 10 eventually*/
