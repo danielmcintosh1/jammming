@@ -5,39 +5,16 @@ import SearchResults from  '../SearchResults/SearchResults';
 import Playlist from  '../Playlist/Playlist';
 import Spotify from '../../util/Spotify';
 
+Spotify.getAccessToken();
+
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-       searchResults: [{
-        name: 'Track 1',
-        album: 'Album 1',
-        artist: 'Artist 1',
-        id: '1'
-   }, {
-        name: 'Track 2',
-        album: 'Album 1',
-        artist: 'Artist 1',
-        id: '2'
-   }, {
-        name: 'Track 3',
-        album: 'Album 1',
-        artist: 'Artist 1',
-        id: '3'
-   }] ,
+       searchResults: [] ,
       playlistName: 'Daniels Playlist',
-      playlistTracks: [{
-        name: 'Track 1',
-        album: 'Album 2',
-        artist: 'Artist 1',
-        id: '4'
-      }, {
-        name: 'Track 2',
-        album: 'Album 2',
-        artist: 'Artist 1',
-        id: '5'
-      }]
+      playlistTracks: []
     };
 
       this.addTrack = this.addTrack.bind(this);
@@ -74,7 +51,8 @@ class App extends Component {
   }
 
   search(term) {
-    Spotify.search(term).then(tracks => {
+    Spotify.search(term)
+      .then(tracks => {
       this.setState({ searchResults: tracks });
     })
   }
