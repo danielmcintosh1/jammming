@@ -38,7 +38,7 @@ const Spotify = {
               name: track.name,
               artist: track.artists[0].name,
               album: track.album.name,
-              url: track.uri
+              uri: track.uri
             }));
           } else {
             return [];
@@ -53,7 +53,7 @@ const Spotify = {
           Authorization: `Bearer ${accessToken}`
           };
         let userId = '';
-        let playlistId = '';
+        let playlistId = undefined;
         const userUrl = 'https://api.spotify.com/v1/me';
         fetch(userUrl, {
           headers: headers
@@ -72,8 +72,12 @@ const Spotify = {
             body: JSON.stringify({name: playlistName})
           })
         })
-          .then(response => response.json())
-          .then(jsonResponse => playlistId = jsonResponse.id)
+        .then( function(response) {
+            return response.json();
+          })
+          .then( function (jsonResponse){
+            return playlistId = jsonResponse.id
+          })
           .then(() => {
             const addPlaylistTracksUrl = `https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`;
             fetch(addPlaylistTracksUrl, {
