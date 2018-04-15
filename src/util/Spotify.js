@@ -45,6 +45,46 @@ const Spotify = {
           }
         }
       );
+    },
+
+    savePlaylist(playlistName, uriArray) {
+      if(playlistName && uriArray) {
+        const accessTokenPlaylist = this.accessToken;
+        const headers = {
+          Authorization: `Bearer ${accessToken}`
+          };
+        const userId = '';
+        const userUrl = 'https://api.spotify.com/v1/me';
+        fetch(userUrl, {
+          headers: headers
+        })
+        .then( function(response) {
+          return response.json();
+        })
+        .then( function (jsonResponse){
+          return userId = jsonResponse.id
+        })
+        .then(() => {
+          const createPlaylistUrl =  `https://api.spotify.com/v1/users/${userId}/playlists`;
+          fetch(createPlaylistUrl, {
+            method: `POST`,
+            headers: headers,
+            body: JSON.stringify({name: playlistName})
+          })
+        })
+          .then(response => response.json())
+          .then(jsonResponse => playlistId = jsonResponse.id)
+          .then(() => {
+            const addPlaylistTracksUrl = `https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`;
+            fetch(addPlaylistTracksUrl, {
+              method: 'POST',
+              headers: headers,
+              body: JSON.stringify({
+                uris: uriArray
+              })
+            })
+        });
+      } else return
     }
 };
 
