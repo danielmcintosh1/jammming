@@ -13,7 +13,7 @@ class SearchBar extends Component {
   }
 
   handleTermChange(termChangeEvent) {
-    this.setState({term: termChangeEvent.target.value});
+    this.search(termChangeEvent.target.value);
   }
 
   render() {
