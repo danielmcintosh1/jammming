@@ -49,24 +49,25 @@ const Spotify = {
 
     savePlaylist(playlistName, uriArray) {
       if(playlistName && uriArray) {
+        const accessToken = Spotify.getAccessToken();
         const headers = {
           Authorization: `Bearer ${accessToken}`
           };
-        let userId = '';
+        let userId = undefined;
         let playlistId = undefined;
         const userUrl = 'https://api.spotify.com/v1/me';
-        fetch(userUrl, {
+        return fetch(userUrl, {
           headers: headers
         })
         .then( function(response) {
           return response.json();
         })
         .then( function (jsonResponse){
-          return userId = jsonResponse.id
+          userId = jsonResponse.id
         })
         .then(() => {
           const createPlaylistUrl =  `https://api.spotify.com/v1/users/${userId}/playlists`;
-          fetch(createPlaylistUrl, {
+          return fetch(createPlaylistUrl, {
             method: `POST`,
             headers: headers,
             body: JSON.stringify({name: playlistName})
@@ -76,7 +77,7 @@ const Spotify = {
             return response.json();
           })
           .then( function (jsonResponse){
-            return playlistId = jsonResponse.id
+            playlistId = jsonResponse.id
           })
           .then(() => {
             const addPlaylistTracksUrl = `https://api.spotify.com/v1/users/${userId}/playlists/${playlistId}/tracks`;
